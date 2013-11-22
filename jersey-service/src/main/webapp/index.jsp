@@ -9,7 +9,7 @@
 		}
 		
 		function calljsonp() {
-			$.getJSON("webapi/user/jsonp/1?jsonp=?", mycallback);
+			$.getJSON("webapi/users/jsonp/1?jsonp=?", mycallback);
 		}
 	</script>
 </head>
@@ -18,7 +18,14 @@
     <h2>Sample Jersey App !</h2>
     
     <p><a href="webapi/application.wadl">WADL</a></p>
-    <p><a href="webapi/user/1">GET User with id 1</a></p>
-    <p><a href="javascript:calljsonp();">JSONP</a></p>
+    
+    <h3>JSON</h3>
+    
+    <p><a href="webapi/users/1">GET user with id 1</a></p>
+    <p><a href="webapi/users">GET all users</a></p>
+    
+    <h3>JSONP</h3>
+    
+    <p><a href="javascript:calljsonp();">GET javascript for user 1</a></p>
 </body>
 </html>

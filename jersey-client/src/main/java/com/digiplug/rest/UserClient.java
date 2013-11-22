@@ -5,12 +5,13 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.moxy.json.MoxyJsonFeature;
 
 public class UserClient {
 
-	static final String USER_RESOURCE_ENDPOINT = "/jersey-service-demo/webapi/user";
+	static final String USER_RESOURCE_ENDPOINT = "/jersey-service-demo/webapi/users";
 
 	public User getUser(Long userId) {
 		Client client = ClientBuilder.newClient().register(MoxyJsonFeature.class);
@@ -41,6 +42,21 @@ public class UserClient {
 		}
 
 		return user;
+	}
+
+	public Response deleteUser(Long userId) {
+		Client client = ClientBuilder.newClient().register(MoxyJsonFeature.class);
+
+		try {
+			WebTarget userResource = client.target("http://localhost:8080").path(USER_RESOURCE_ENDPOINT)
+					.path(userId.toString());
+
+			userResource.request().delete();
+		} finally {
+			client.close();
+		}
+
+		return null;
 	}
 
 }

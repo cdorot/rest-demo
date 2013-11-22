@@ -1,3 +1,5 @@
 curl http://localhost:8080/jersey-service-demo/webapi/user/json/123
+	-> expected result : {"firstname":"John","id":1,"lastname":"Doe"}
 
-curl -H "Accept: application/javascript" http://localhost:8080/jersey-service-demo/webapi/user/jsonp/123?jsonp=mycallback
+curl -H "Accept: application/javascript" http://localhost:8080/jersey-service-demo/webapi/users/jsonp/1?jsonp=mycallback
+	-> expected result : mycallback({"firstname":"John","id":1,"lastname":"Doe"})

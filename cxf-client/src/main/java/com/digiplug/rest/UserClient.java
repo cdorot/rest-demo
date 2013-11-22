@@ -11,9 +11,9 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 
 public class UserClient {
 
-	static final String GET_USER_ENDPOINT = "/cxf-service/webapi/user/{userId}";
+	static final String GET_USER_ENDPOINT = "/cxf-service/webapi/users/{userId}";
 
-	static final String POST_USER_ENDPOINT = "/cxf-service/webapi/user";
+	static final String USER_RESOURCE_ENDPOINT = "/cxf-service/webapi/users";
 
 	private String baseAddress;
 
@@ -34,11 +34,20 @@ public class UserClient {
 
 	public User postUser(User user) {
 		WebClient client = WebClient.create(this.baseAddress, Collections.singletonList(new JacksonJaxbJsonProvider()))
-				.path(POST_USER_ENDPOINT);
+				.path(USER_RESOURCE_ENDPOINT);
 
 		Response response = client.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(user);
 
 		return response.readEntity(User.class);
 	}
 
+	public Response deleteUser(Long userId) {
+		WebClient client = WebClient.create(this.baseAddress, Collections.singletonList(new JacksonJaxbJsonProvider()))
+				.path(GET_USER_ENDPOINT, userId);
+		
+		Response response = client.delete();
+		
+		return response;
+	}
+	
 }

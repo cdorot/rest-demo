@@ -1,0 +1,5 @@
+curl http://localhost:8080/cxf-service/webapi/user/json/123
+	-> expected result : {"firstname":"John","id":1,"lastname":"Doe"}
+
+curl -H "Accept: application/javascript" http://localhost:8080/cxf-service/webapi/users/1?jsonp=mycallback
+	-> expected result : mycallback({"firstname":"John","id":1,"lastname":"Doe"})

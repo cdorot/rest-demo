@@ -44,4 +44,12 @@ public class UserClientIT {
 		assertNotNull(user.getId());
 	}
 
+	@Test(expected = NotFoundException.class)
+	public void deleteUser() {
+		Long userId = 1l;
+
+		this.userClient.deleteUser(userId);
+		this.userClient.getUser(userId);
+	}
+
 }
