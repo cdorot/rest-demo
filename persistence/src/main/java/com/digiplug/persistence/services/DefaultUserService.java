@@ -1,5 +1,7 @@
 package com.digiplug.persistence.services;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -17,6 +19,17 @@ public class DefaultUserService implements UserService {
 	private UserDao userDao;
 
 	@Override
+	public void delete(User user) {
+		this.userDao.delete(user);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<User> findAll() {
+		return this.userDao.findAll();
+	}
+
+	@Override
 	@Transactional(readOnly = true)
 	public User findUserById(Long id) {
 		User user = this.userDao.findUserById(id);
@@ -31,6 +44,11 @@ public class DefaultUserService implements UserService {
 	@Override
 	public User persist(User user) {
 		return this.userDao.persist(user);
+	}
+
+	@Override
+	public User update(User user) {
+		return this.update(user);
 	}
 
 }
