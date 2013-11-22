@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<Context>
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+
+	<!-- Conf REST Demo - [START] -->
+	
+    <ResourceLink global="jdbc/usersResource" 
+    	name="jdbc/usersResource" type="javax.sql.DataSource"/>
+    
+    <!-- Conf REST Demo - [END] -->
+</Context>

@@ -1,0 +1,3 @@
+curl http://localhost:8080/jersey-service-demo/webapi/user/json/123
+
+curl -H "Accept: application/javascript" http://localhost:8080/jersey-service-demo/webapi/user/jsonp/123?jsonp=mycallback
