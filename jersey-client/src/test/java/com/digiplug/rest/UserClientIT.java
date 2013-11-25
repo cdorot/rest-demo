@@ -17,6 +17,14 @@ public class UserClientIT {
 		this.userClient = new UserClient();
 	}
 
+	@Test(expected = NotFoundException.class)
+	public void deleteUser() {
+		Long userId = 1l;
+
+		this.userClient.deleteUser(userId);
+		this.userClient.getUser(userId);
+	}
+
 	@Test
 	public void getUser() {
 		Long userId = 1l;
@@ -44,12 +52,18 @@ public class UserClientIT {
 		assertNotNull(user.getId());
 	}
 
-	@Test(expected = NotFoundException.class)
-	public void deleteUser() {
-		Long userId = 1l;
+	@Test
+	public void putUser() {
+		String firstname = "homer";
+		Long userId = 2l;
 
-		this.userClient.deleteUser(userId);
-		this.userClient.getUser(userId);
+		User user = this.userClient.getUser(userId);
+
+		user.setFirstname(firstname);
+
+		user = this.userClient.putUser(user);
+
+		assertEquals(firstname, user.getFirstname());
 	}
 
 }

@@ -23,6 +23,15 @@ public class UserClient {
 		this.baseAddress = baseAddress;
 	}
 
+	public Response deleteUser(Long userId) {
+		WebClient client = WebClient.create(this.baseAddress, Collections.singletonList(new JacksonJaxbJsonProvider()))
+				.path(GET_USER_ENDPOINT, userId);
+
+		Response response = client.delete();
+
+		return response;
+	}
+
 	public User getUser(Long userId) {
 		WebClient client = WebClient.create(this.baseAddress, Collections.singletonList(new JacksonJaxbJsonProvider()))
 				.path(GET_USER_ENDPOINT, userId);
@@ -41,13 +50,13 @@ public class UserClient {
 		return response.readEntity(User.class);
 	}
 
-	public Response deleteUser(Long userId) {
+	public User putUser(User user) {
 		WebClient client = WebClient.create(this.baseAddress, Collections.singletonList(new JacksonJaxbJsonProvider()))
-				.path(GET_USER_ENDPOINT, userId);
-		
-		Response response = client.delete();
-		
-		return response;
+				.path(GET_USER_ENDPOINT, user.getId());
+
+		user = client.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).put(user, User.class);
+
+		return user;
 	}
-	
+
 }

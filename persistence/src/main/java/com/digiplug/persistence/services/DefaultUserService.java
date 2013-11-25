@@ -48,7 +48,7 @@ public class DefaultUserService implements UserService {
 
 	@Override
 	public User update(User user) {
-		return this.update(user);
+		return this.userDao.update(user);
 	}
 
 }
