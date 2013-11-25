@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
@@ -22,8 +23,14 @@ public class ImportDatabaseConfig {
 	@Bean
 	public DataSourceInitializer dataSourceInitializer() {
 		DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+
 		dataSourceInitializer.setDataSource(dataSource);
 		dataSourceInitializer.setDatabasePopulator(databasePopulator());
+
+		if (!this.isUserTableEmpty()) {
+			dataSourceInitializer.setEnabled(false);
+		}
+
 		return dataSourceInitializer;
 	}
 
@@ -37,6 +44,15 @@ public class ImportDatabaseConfig {
 	@Bean
 	public ResourceLoader resourceLoader() {
 		return new DefaultResourceLoader();
+	}
+
+	@Bean
+	public JdbcTemplate jdbcTemplate() {
+		return new JdbcTemplate(dataSource);
+	}
+
+	private boolean isUserTableEmpty() {
+		return this.jdbcTemplate().queryForObject("select count(*) from users", Integer.class) == 0;
 	}
 
 }
