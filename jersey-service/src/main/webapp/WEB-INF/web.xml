@@ -32,6 +32,14 @@
 			<param-name>jersey.config.server.provider.packages</param-name>
 			<param-value>com.digiplug.rest</param-value>
 		</init-param>
+		<init-param>
+			<param-name>jersey.config.server.wadl.generatorConfig</param-name>
+			<param-value>com.digiplug.rest.SampleWadlGeneratorConfig</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jersey.config.xml.security.disable</param-name>
+			<param-value>true</param-value>
+		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	

@@ -30,6 +30,13 @@ public class UserResource {
 		return this.userService.findAll();
 	}
 
+	/**
+	 * @response.representation.200.mediaType application/json
+	 * @response.representation.404.mediaType text/plain
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	@GET
 	@Path("{userId}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -52,6 +59,11 @@ public class UserResource {
 		return this.userService.persist(user);
 	}
 
+	/**
+	 * 
+	 * @param userId
+	 *        the technical identifier of the user to delete
+	 */
 	@DELETE
 	@Path("{userId}")
 	public void deleteUser(@PathParam("userId") Long userId) {
