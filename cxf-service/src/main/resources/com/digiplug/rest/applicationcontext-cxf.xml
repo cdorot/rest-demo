@@ -11,17 +11,17 @@
 	
 	<context:property-placeholder />
 	<context:annotation-config />
-	
-	<bean class="org.springframework.web.context.support.ServletContextPropertyPlaceholderConfigurer" />
-	<bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer" />
 
-	<jaxrs:server  id="services" address="/">
+	<jaxrs:server id="services" address="/">
 		<jaxrs:serviceBeans>
 			<bean class="com.digiplug.rest.UserResource" />
 		</jaxrs:serviceBeans>
 		
 		<jaxrs:providers>
 			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+			<!--
+			<bean class="org.eclipse.persistence.jaxb.rs.MOXyJsonProvider" />
+			-->
 			<bean class="com.digiplug.rest.UserNotFoundMapper" />
 		</jaxrs:providers>
 		

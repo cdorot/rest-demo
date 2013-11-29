@@ -15,6 +15,8 @@
     	<jdk.version>1.7</jdk.version>
     	
         <jersey.version>2.4.1</jersey.version>
+        <spring.version>3.2.5.RELEASE</spring.version>
+        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -63,6 +65,11 @@
         
         <dependency>
         	<groupId>org.glassfish.jersey.ext</groupId>
+        	<artifactId>jersey-bean-validation</artifactId>
+        </dependency>
+        
+        <dependency>
+        	<groupId>org.glassfish.jersey.ext</groupId>
         	<artifactId>jersey-wadl-doclet</artifactId>
         </dependency>
         
@@ -71,7 +78,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>3.2.5.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
     </dependencies>
     
