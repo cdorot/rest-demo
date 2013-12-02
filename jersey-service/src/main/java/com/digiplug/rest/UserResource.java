@@ -1,5 +1,6 @@
 package com.digiplug.rest;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,7 +12,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import org.glassfish.jersey.server.JSONP;
 
@@ -20,6 +24,9 @@ import com.digiplug.persistence.services.UserService;
 
 @Path("users")
 public class UserResource {
+
+	@Context
+	private UriInfo uriInfo;
 
 	@Inject
 	private UserService userService;
@@ -35,6 +42,7 @@ public class UserResource {
 	 * @response.representation.404.mediaType text/plain
 	 * 
 	 * @param userId
+	 *        the technical identifier of the user to retrieve
 	 * @return
 	 */
 	@GET
@@ -52,14 +60,31 @@ public class UserResource {
 		return this.getUser(userId);
 	}
 
+	/**
+	 * Handles the request sent to the server to accept the {@code User} entity
+	 * given in parameter as a new subordinate of the resource identified by the
+	 * Request-URI.
+	 * 
+	 * <blockquote>POST /../webapi/users HTTP/1.1</blockquote>
+	 * 
+	 * @param user
+	 *        the user entity
+	 * @return
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User postUser(User user) {
-		return this.userService.persist(user);
+	public Response postUser(User user) {
+		User createdUser = this.userService.persist(user);
+
+		URI createdUri = this.uriInfo.getAbsolutePathBuilder().path(String.valueOf(createdUser.getId())).build();
+
+		return Response.created(createdUri).entity(createdUser).build();
 	}
 
 	/**
+	 * Handles the request sent to the server to delete the {@code User}
+	 * resource identified by the Request-URI.
 	 * 
 	 * @param userId
 	 *        the technical identifier of the user to delete

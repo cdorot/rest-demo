@@ -14,7 +14,7 @@ public class UserClientIT {
 	public UserClientIT() {
 		super();
 
-		this.userClient = new UserClient();
+		this.userClient = new UserClient("http://localhost:8080");
 	}
 
 	@Test(expected = NotFoundException.class)

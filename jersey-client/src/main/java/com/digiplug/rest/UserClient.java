@@ -13,12 +13,20 @@ public class UserClient {
 
 	static final String USER_RESOURCE_ENDPOINT = "/jersey-service-demo/webapi/users";
 
+	private String baseAddress;
+
+	public UserClient(String baseAddress) {
+		super();
+
+		this.baseAddress = baseAddress;
+	}
+
 	public Response deleteUser(Long userId) {
 		Client client = ClientBuilder.newClient().register(MoxyJsonFeature.class);
 		Response response = null;
 
 		try {
-			WebTarget userResource = client.target("http://localhost:8080").path(USER_RESOURCE_ENDPOINT)
+			WebTarget userResource = client.target(this.baseAddress).path(USER_RESOURCE_ENDPOINT)
 					.path(userId.toString());
 
 			response = userResource.request().delete();
@@ -34,7 +42,7 @@ public class UserClient {
 		User user = null;
 
 		try {
-			WebTarget userResource = client.target("http://localhost:8080").path(USER_RESOURCE_ENDPOINT)
+			WebTarget userResource = client.target(this.baseAddress).path(USER_RESOURCE_ENDPOINT)
 					.path(userId.toString());
 
 			user = userResource.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).get(User.class);
@@ -49,7 +57,7 @@ public class UserClient {
 		Client client = ClientBuilder.newClient().register(MoxyJsonFeature.class);
 
 		try {
-			WebTarget userResource = client.target("http://localhost:8080").path(USER_RESOURCE_ENDPOINT);
+			WebTarget userResource = client.target(this.baseAddress).path(USER_RESOURCE_ENDPOINT);
 
 			user = userResource.request(MediaType.APPLICATION_JSON).post(
 					Entity.entity(user, MediaType.APPLICATION_JSON), User.class);
