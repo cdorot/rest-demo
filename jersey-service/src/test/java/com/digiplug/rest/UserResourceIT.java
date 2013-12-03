@@ -11,8 +11,10 @@ import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -114,6 +116,38 @@ public class UserResourceIT {
 		int statusCode = response.getStatusLine().getStatusCode();
 
 		assertEquals(400, statusCode);
+	}
+
+	@Test
+	public void putUser() throws URISyntaxException, IOException {
+		URI uri = this.userResourceURIBuilder.setPath(USER_RESOURCE_PATH + "/2").build();
+
+		HttpEntity entity = new StringEntity("{ \"id\":2,\"firstname\":\"Lisa\",\"lastname\":\"Simpson\" }",
+				ContentType.APPLICATION_JSON);
+		HttpPut httpPut = new HttpPut(uri);
+
+		httpPut.setEntity(entity);
+
+		this.response = this.httpClient.execute(httpPut);
+
+		int statusCode = response.getStatusLine().getStatusCode();
+		String content = IOUtils.toString(response.getEntity().getContent(), CharEncoding.UTF_8);
+
+		assertEquals(200, statusCode);
+		assertEquals("{\"firstname\":\"Lisa\",\"id\":2,\"lastname\":\"Simpson\"}", content);
+	}
+
+	@Test
+	public void deleteUser() throws URISyntaxException, IOException {
+		URI uri = this.userResourceURIBuilder.setPath(USER_RESOURCE_PATH + "/3").build();
+
+		HttpDelete httpDelete = new HttpDelete(uri);
+
+		this.response = this.httpClient.execute(httpDelete);
+
+		int statusCode = response.getStatusLine().getStatusCode();
+
+		assertEquals(204, statusCode);
 	}
 
 }
