@@ -9,14 +9,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity(name = User.ENTITY_NAME)
 @Table(name = User.ENTITY_NAME)
 @NamedQueries(value = { @NamedQuery(name = User.QUERY_FIND_ALL, query = "select u from " + User.ENTITY_NAME + " u") })
 // XXX : Annotation @XmlRootElement is required by CXF while generating the WADL
 // for including the representation definition of the entity (XML Schema)
-@XmlRootElement
+// XXX : If we attach a custom xsd to the WadlGenerator we can do without it !!!
+// @XmlRootElement
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -3665866356536168935L;

@@ -22,6 +22,18 @@
 			<!--
 			<bean class="org.eclipse.persistence.jaxb.rs.MOXyJsonProvider" />
 			-->
+			
+			 <bean class="org.apache.cxf.jaxrs.model.wadl.WadlGenerator">
+			 	<property name="applicationTitle" value="Sample API Documentation" />
+			 	<property name="addResourceAndMethodIds" value="true" />
+			 	<property name="externalLinks">
+			 		<list>
+			 			<value>classpath:/WEB-INF/schemas/user.xsd</value>
+			 		</list>
+			 	</property>
+			 	<property name="linkJsonToXmlSchema" value="true" />
+			 </bean>
+			 
 			<bean class="com.digiplug.rest.UserNotFoundMapper" />
 		</jaxrs:providers>
 		

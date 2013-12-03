@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://com.digiplug.sample/user" xmlns:tns="http://com.digiplug.sample/user"
+	elementFormDefault="qualified">
+	
+	<xsd:complexType name="user">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:long" />
+			<xsd:element name="firstname" type="xsd:string" nillable="false" />
+			<xsd:element name="lastname" type="xsd:string" nillable="false" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

@@ -67,6 +67,8 @@ public class UserResource {
 	 * 
 	 * <blockquote>POST /../webapi/users HTTP/1.1</blockquote>
 	 * 
+	 * @response.representation.201.mediaType application/json
+	 * 
 	 * @param user
 	 *        the user entity
 	 * @return
