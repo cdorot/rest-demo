@@ -31,6 +31,11 @@ public class UserResource {
 	@Inject
 	private UserService userService;
 
+	/**
+	 * Read all existing user resources.
+	 * 
+	 * @return
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<User> getUsers() {
@@ -38,12 +43,14 @@ public class UserResource {
 	}
 
 	/**
+	 * Read an existing user resource.
+	 * 
 	 * @response.representation.200.mediaType application/json
 	 * @response.representation.404.mediaType text/plain
 	 * 
 	 * @param userId
 	 *        the technical identifier of the user to retrieve
-	 * @return
+	 * @return the requested resource
 	 */
 	@GET
 	@Path("{userId}")
@@ -61,17 +68,13 @@ public class UserResource {
 	}
 
 	/**
-	 * Handles the request sent to the server to accept the {@code User} entity
-	 * given in parameter as a new subordinate of the resource identified by the
-	 * Request-URI.
-	 * 
-	 * <blockquote>POST /../webapi/users HTTP/1.1</blockquote>
+	 * Request the creation of a new user resource.
 	 * 
 	 * @response.representation.201.mediaType application/json
 	 * 
 	 * @param user
-	 *        the user entity
-	 * @return
+	 *        the user resource
+	 * @return the created user resource
 	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -85,11 +88,11 @@ public class UserResource {
 	}
 
 	/**
-	 * Handles the request sent to the server to delete the {@code User}
-	 * resource identified by the Request-URI.
+	 * Request the deletion of an existing user resource identified by the
+	 * request URI.
 	 * 
 	 * @param userId
-	 *        the technical identifier of the user to delete
+	 *        the identifier of the user resource
 	 */
 	@DELETE
 	@Path("{userId}")
@@ -99,6 +102,15 @@ public class UserResource {
 		this.userService.delete(user);
 	}
 
+	/**
+	 * Request the update of an existing user resource.
+	 * 
+	 * @param userId
+	 *        the identifier of the user resource
+	 * @param user
+	 *        the modified version of the user resource to push on the server
+	 * @return the updated version of the user resource
+	 */
 	@PUT
 	@Path("{userId}")
 	@Produces(MediaType.APPLICATION_JSON)
