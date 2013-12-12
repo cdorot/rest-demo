@@ -26,8 +26,8 @@ public class UserClient {
 		Response response = null;
 
 		try {
-			WebTarget userResource = client.target(this.baseAddress).path(USER_RESOURCE_ENDPOINT)
-					.path(userId.toString());
+			WebTarget userResource = client.target(this.baseAddress).path(USER_RESOURCE_ENDPOINT).path("{userId}")
+					.resolveTemplate("userId", userId.toString());
 
 			response = userResource.request().delete();
 		} finally {
@@ -42,8 +42,8 @@ public class UserClient {
 		User user = null;
 
 		try {
-			WebTarget userResource = client.target(this.baseAddress).path(USER_RESOURCE_ENDPOINT)
-					.path(userId.toString());
+			WebTarget userResource = client.target(this.baseAddress).path(USER_RESOURCE_ENDPOINT).path("{userId}")
+					.resolveTemplate("userId", userId.toString());
 
 			user = userResource.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).get(User.class);
 		} finally {
@@ -72,8 +72,8 @@ public class UserClient {
 		Client client = ClientBuilder.newClient().register(MoxyJsonFeature.class);
 
 		try {
-			WebTarget userResource = client.target("http://localhost:8080").path(USER_RESOURCE_ENDPOINT)
-					.path(String.valueOf(user.getId()));
+			WebTarget userResource = client.target(this.baseAddress).path(USER_RESOURCE_ENDPOINT).path("{userId}")
+					.resolveTemplate("userId", String.valueOf(user.getId()));
 
 			user = userResource.request(MediaType.APPLICATION_JSON).put(
 					Entity.entity(user, MediaType.APPLICATION_JSON), User.class);
